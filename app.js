@@ -1,98 +1,58 @@
-
-class Queue
-{
-
-    constructor()
-    {
-        this.items = [];
-    }
-
-    enqueue(item)
-    {
-        this.items.push(item);
-    }
-
-    dequeue()
-    {
-        if(this.isEmpty())
-        {
-            return "Underflow";
-        }
-        return this.items.shift();
-    }
-
-    isEmpty()
-    {
-        return this.items.length == 0;
-    }
-
-    peek()
-        {
-            return this.items.join();
-        }
-
-    size()
-    {
-        return this.items.length;
-    }
-
-}
-
-
-let queue = new Queue;
-
-queue.enqueue({
-                   "compilerOptions": {
-                       "target": "es5",
-                       "module": "commonjs",
-                       "sourceMap": true,
-                       "watch": false,
-                       "outDir": "./tsOutputs",
-                       "libs": ["dom", "es2017"]
-                   }
-               });
-
-queue.enqueue({"cat":{}});
-queue.enqueue(44);
-queue.enqueue("lisa");
-
-console.log(queue.peek());
+const db = require("./database.js");
 
 const express = require('express');
-const bodyParser = require('body-parser');
-
 const app = express();
 
 const port = process.env.PORT || 3000;
 
+const bodyParser = require("body-parser");
+
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 
 
-
-app.get('/queue_peek', (req,res) => {
-    if(queue.isEmpty())
-    {
-        res.send('Queue is empty');
-    }
-    res.send(queue.peek());
+app.get('/api/queue', (req, res) => {
+    db.all("SELECT string FROM queue", function(err, rows){
+        res.json(rows.map(x => JSON.parse(x.string)));
+    });
 });
 
 
-app.post('/queue_enqueue', (req, res) => {
-    queue.enqueue(req.body);
-
-    res.json("successfully enqueued " + req.body);
+app.post('/api/queue', (req, res) => {
+    let enqueue_str = JSON.stringify(req.body);
+    db.run("INSERT INTO queue (string) VALUES (?)", enqueue_str, function(err, row){
+        if (err){
+            console.err(err);
+            res.status(500).json({"error": err.message});
+            return;
+        }
+        else{
+            res.send("successfully enqueued:\n\n" + enqueue_str);
+            // res.json(JSON.parse(enqueue_str));
+        }
+    });
 });
-//
 
-app.delete('/queue_dequeue', (req, res) => {
-    console.log(queue.peek());
-    res.json(queue.dequeue());
+
+app.delete('/api/queue', (req, res) => {
+    db.get("SELECT string FROM queue LIMIT 1", function(err, rows){
+        db.run("DELETE FROM queue WHERE id = (SELECT id FROM queue LIMIT 1);");
+        if(rows)
+        {
+            res.json(JSON.parse(rows.string));
+        }
+        else
+        {
+            res.send();
+        }
+    });
+});
+
+app.use(function(req, res){
+    res.status(404);
 });
 
 
-app.listen(port, () => console.log(`listening on port ${port}...`));
-
+app.listen(port, () => console.log(`Submit POST, DELETE, or GET to http://localhost:${port}/api/queue`));

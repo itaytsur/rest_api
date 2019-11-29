@@ -1,0 +1,32 @@
+Requirements to run this program:
+- Have git installed.
+- Have nodeJS installed.
+- Have npm installed (comes with nodeJS on new versions).
+- Have Postman installed.
+
+This RESSTful api web service provides a queue mechanism, having 3 methods: enqueue, dequeue, and peek (to see the entire queue).
+
+The queue is implemented on a database, so you could exit the program and resume, and the database will keep all entries saved on the disk for the next time the server is started.
+
+In order to run this RESTful api web service, first make a directory where you'd like the project to be saved to, open the terminal to at that directory and clone the git repository using the url: "https://github.com/itaytsur/rest_api.git".
+
+Then, from the terminal type "npm install" in order to install all npm dependencies).
+
+In Order to run the tests type into the terminal "npm test".
+
+Before running the server you should know that the server automatically listens to port 3000, if this is not your desired port or if that port is already being used on your machine you are welcome to define an environment variable PORT=# (where # is your desired port number) for the server to listen on instead.
+
+Also, if you would like the queue to be deleted as the program starts, so as to start fresh with an empty queue, define an environment variable DROP_ON_ENTRY=1234;
+
+In order to run this server:
+
+First define all of your environment variables on the same line in the terminal, then on the same line type "node app.js", or use the start script by typing in "npm start". Your server is now running.
+
+Once you have established a connection, go on Postman where you are free to submit HTTP requests to http://localhost:PORT#/api/queue:
+
+- POST requests for enqueue.
+- DELETE requests for dequeue.
+- GET requests for peek.
+
+
+

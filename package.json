@@ -1,17 +1,22 @@
 {
-  "name": "myapp",
+  "name": "rest_api_queue",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
-    "start": "nodemon app.js"
+    "test": "mocha --timeout 10000",
+    "start": "node app.js"
   },
   "author": "itay.tsur",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "mocha": "^6.2.2",
     "sqlite3": "^4.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.2",
+    "nodemon": "^2.0.1"
   }
 }

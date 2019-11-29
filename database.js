@@ -10,16 +10,15 @@ const db = new sqlite3.Database('database/queue', (err) => {
     }
 });
 
+const dropOnEntry = process.env.DROP_ON_ENTRY
+
 db.serialize(() => {
 
-    // db.run("DROP TABLE IF EXISTS queue");
+    if(dropOnEntry == 1234){
+        db.run("DROP TABLE IF EXISTS queue");
+    }
 
     db.run("CREATE TABLE IF NOT EXISTS queue (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, string TEXT)");
-
-    // db.each("SELECT id, string FROM queue", function(err, row) {
-    //     console.log(row.id + ": " + row.string);
-    // });
-
 });
 
 

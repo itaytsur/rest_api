@@ -1,0 +1,39 @@
+Design Document for RESTful web service that implements a queue mechanism Home Assignment
+
+Requirements:
+
+The project's requirements were to create a RESTful api that implements a queue mechanism, where the queue would have 3 basic methods: enqueue, dequeue, and peek (returning all contents in the queue).
+
+The implementation was required to be done in NodeJS, and usage of web framework was allowed.
+
+Another requirement was to test the api using mocha
+
+Finally, the queue was required to be implemented on an SQLite Database.
+
+
+
+Solution:
+
+When I first received this home assignment I thought it would be impossible for me to complete it in NodeJS since I had no previous knowledge of NodeJS prior to working on this project.
+I requested an assignment that would better fit my toolkit (C and C++) and was asked to implement this project using C++.
+After some reading I decided that it would be best if I implemented this project in NodeJS as initially requested - in order to present the project in it was meant to be preseted, as well as to expand my own horizons as I love learning and experimenting with new things.
+I had a limited time to learn NodeJS in order to submit this project on time.
+I started by taking a NodeJS course online, then I was first introduced to things like package.json file (and json in general), npm's and npm run scripts, REPL, template strings, working with web servers and many more new and exciting features.
+
+My solution includes using the npm express module as a web framework, SQLite as a database, the npm sqlite3 module in order to connect to the SQLite databse, the mocha module for testing, and Postman in order to submit PUT, DELETE, and GET requests to the server and get feedback.
+
+
+
+Edge Cases:
+
+- peek: when using peek (HTTP GET request) on an empty queue the user will receive an empty array.
+- dequeue: when using dequeue (HTTP DELETE request) on an empty queue the user will receive back an empty feedback.
+ 
+- Concurrency: this queue, being based on SQLite databse, does not support concurrent writes. Although each action does not last more than a few dozen milliseconds, concurrent writes may result in corruption to the database.
+- High Volume: This queue is not the best fit for write intensive use.
+- Large Volume: this queue, being based on SQLite database, is limited in size to 140 TB.
+
+
+
+
+
