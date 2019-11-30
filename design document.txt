@@ -16,11 +16,17 @@ Solution:
 
 When I first received this home assignment I thought it would be impossible for me to complete it in NodeJS since I had no previous knowledge of NodeJS prior to working on this project.
 I requested an assignment that would better fit my toolkit (C and C++) and was asked to implement this project using C++.
-After some reading I decided that it would be best if I implemented this project in NodeJS as initially requested - in order to present the project in it was meant to be preseted, as well as to expand my own horizons as I love learning and experimenting with new things.
+After some reading I decided that it would be best if I implemented this project in NodeJS as initially requested - in order to present the project in the manner it was meant to be preseted, as well as to expand my own knowledge as I love learning and experimenting with new things.
 I had a limited time to learn NodeJS in order to submit this project on time.
-I started by taking a NodeJS course online, then I was first introduced to things like package.json file (and json in general), npm's and npm run scripts, REPL, template strings, working with web servers and many more new and exciting features.
+I started by taking a NodeJS course online, then I was first introduced to things like package.json file (and json in general), npm's and npm run scripts, REPL, template strings, working with web servers on NodeJS and many more new and exciting features.
 
-My solution includes using the npm express module as a web framework, SQLite as a database, the npm sqlite3 module in order to connect to the SQLite databse, the mocha module for testing, and Postman in order to submit PUT, DELETE, and GET requests to the server and get feedback.
+My solution includes using the 'express' module as a web framework, 'SQLite' as a database, the 'sqlite3' module as a middleware to connect with the 'SQLite' databse, 'Postman' in order to submit PUT, DELETE, and GET requests to the server and get feedback, the 'mocha' module for unit testing as well as the 'chai' and 'chai-http' modules.
+
+I ran multiple POST, DELETE, and GET requests on Postman, all of which showed the queue working properly.
+
+Unfortunately however, the unit tests using mocha, chai and chai-http were unable to be ran properly.
+the first test was for the enqueue method of the queue - initially it was meant just to get a status back - after that more tests were planned fir expansion, such as getting back the object in JSON format with a preceding field 'status: "success"' - for some reason the 'chai-http' module was not recognized and the test was unable to execute.
+If I had a better understanding of NodeJS I am sure this is something I would have been able to resolve much quicker but because of the time constraints I was unable to properly write api unit tests for this queue.
 
 
 

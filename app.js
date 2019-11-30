@@ -29,8 +29,10 @@ app.post('/api/queue', (req, res) => {
             return;
         }
         else{
-            res.send("successfully enqueued:\n\n" + enqueue_str);
-            // res.json(JSON.parse(enqueue_str));
+            res.json({
+                status: 'success',
+                element: req.body
+            });
         }
     });
 });
@@ -56,3 +58,6 @@ app.use(function(req, res){
 
 
 app.listen(port, () => console.log(`Submit POST, DELETE, or GET to http://localhost:${port}/api/queue`));
+
+
+module.exports = app;
